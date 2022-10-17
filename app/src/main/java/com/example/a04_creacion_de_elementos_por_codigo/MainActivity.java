@@ -3,9 +3,6 @@ package com.example.a04_creacion_de_elementos_por_codigo;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.a04_creacion_de_elementos_por_codigo.modelos.Alumno;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -16,13 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.example.a04_creacion_de_elementos_por_codigo.databinding.ActivityMainBinding;
+import com.example.a04_creacion_de_elementos_por_codigo.modelos.Piso;
 
-import android.view.Menu;
-import android.view.MenuItem;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -36,9 +31,9 @@ public class MainActivity extends AppCompatActivity {
     //2- Logica para pintar los elementos -> pintar elemetos
     //3- Conjunto de datos
     //4-plantilla para mostrar datos
-    private ArrayList<Alumno> alumnosList;
+    private ArrayList<Piso> PisosList;
 
-    private ActivityResultLauncher<Intent> launcherCrearAlumnos;
+    private ActivityResultLauncher<Intent> launcherCrearPisos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,27 +48,29 @@ public class MainActivity extends AppCompatActivity {
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                launcherCrearAlumnos.launch(new Intent(MainActivity.this,AddAlumnoActivity.class));
+                //TODO: lanzar la creacion de un nuevo objeto
+                launcherCrearPisos.launch(new Intent(MainActivity.this, AddPisoActivity.class));
 
             }
         });
 
-        alumnosList = new ArrayList<>();
+        PisosList = new ArrayList<>();
         inicializaLaunchers();
     }
 
     private void inicializaLaunchers() {
 
-        launcherCrearAlumnos = registerForActivityResult(
+        launcherCrearPisos = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
 
                         if (result.getResultCode() == RESULT_OK){
                             if (result.getData()!= null && result.getData().getExtras() != null){
-                                Alumno alumno = (Alumno) result.getData().getExtras().getSerializable("ALUMNO");
-                                alumnosList.add(alumno);
+                                Piso p = (Piso) result.getData().getExtras().getSerializable("PISO");
+                                PisosList.add(p);
+
+                                //Toast.makeText(MainActivity.this, p.toString(), Toast.LENGTH_SHORT).show();
                                 pintarElementos();
 
 
@@ -90,25 +87,29 @@ public class MainActivity extends AppCompatActivity {
     private void pintarElementos() {
         //limpiar elemtos para que no se dupliquen
         binding.content.contenedor.removeAllViews();
-        for (Alumno a : alumnosList) {
+        for (Piso p : PisosList) {
 
             //layaut inflater parta leer el xml
 
             LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
-            View alumnoView = inflater.inflate(R.layout.alumno_model_view, null);
+            View pisoView = inflater.inflate(R.layout.piso_model_view, null);
 
             //View alumnoView = LayoutInflater.from(MainActivity.this).inflate(R.layout.alumno_model_view, null);
-            TextView lblNombre = alumnoView.findViewById(R.id.lblNombreAlumnoView);
-            TextView lblApellidos = alumnoView.findViewById(R.id.lblApellidosAlumnoView);
-            TextView lblCiclo = alumnoView.findViewById(R.id.lblCicloAlumnoView);
-            TextView lblGrupo = alumnoView.findViewById(R.id.lblGrupoAlumnoView);
+            TextView lblCalle = pisoView.findViewById(R.id.lblCallePisoView);
+            TextView lblNumero = pisoView.findViewById(R.id.lblNumeroPisoView);
+            TextView lblProvincia = pisoView.findViewById(R.id.lblProvinciaPisoView);
+            RatingBar rbVal = pisoView.findViewById(R.id.rbValPisoView);
 
-            lblNombre.setText(a.getNombre());
-            lblApellidos.setText(a.getApellidos());
-            lblCiclo.setText(a.getCiclo());
-            lblGrupo.setText(String.valueOf(a.getGrupo()));
+            Toast.makeText(MainActivity.this, p.toString(), Toast.LENGTH_SHORT).show();
 
-            binding.content.contenedor.addView(alumnoView);
+
+
+            lblCalle.setText(p.getDireccion());
+            lblNumero.setText(String.valueOf(p.getNumero()));
+            lblProvincia.setText(p.getProvincia());
+            rbVal.setRating(p.getValoracion());
+
+            binding.content.contenedor.addView(pisoView);
 
 
         }

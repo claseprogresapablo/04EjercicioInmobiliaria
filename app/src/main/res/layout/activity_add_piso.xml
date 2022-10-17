@@ -7,57 +7,56 @@
     android:layout_marginTop="10dp"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".AddAlumnoActivity">
+    tools:context=".AddPisoActivity">
 
     <EditText
-        android:id="@+id/txtNombreAddAlumno"
+        android:id="@+id/txtDireccionAddPiso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:ems="10"
-        android:hint="@string/nombre"
+        android:hint="@string/direccion"
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/txtApellidosAddAlumno"
+        android:id="@+id/txtNumAddPiso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/numero"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/txtCiudadAddPiso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:ems="10"
-        android:hint="@string/apellidos"
+        android:hint="@string/ciudad"
         android:inputType="textPersonName" />
 
-    <Spinner
-        android:id="@+id/spCiclosAddAlumno"
+    <EditText
+        android:id="@+id/txtProvinciaAddPiso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:entries="@array/spined_ciclos" />
+        android:ems="10"
+        android:hint="@string/provincia"
+        android:inputType="textPersonName" />
 
-    <RadioGroup
-        android:id="@+id/rgGruposAddAlumno"
+    <EditText
+        android:id="@+id/txtCPAddPiso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:ems="10"
+        android:hint="@string/cp"
+        android:inputType="number" />
 
-        <RadioButton
-            android:id="@+id/rbGrupoAAddAlumno"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/grupo_a" />
-
-        <RadioButton
-            android:id="@+id/rbGrupoBAddAlumno"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/grupo_b" />
-
-        <RadioButton
-            android:id="@+id/rbGrupoCAddAlumno"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/grupo_c" />
-    </RadioGroup>
+    <RatingBar
+        android:id="@+id/rbValPisoAddPiso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -66,14 +65,14 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnCancelarAddAlumno"
+            android:id="@+id/btnCancelarAddPiso"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/cancelar" />
 
         <Button
-            android:id="@+id/btnCrearAddAlumno"
+            android:id="@+id/btnCrearAddPiso"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
