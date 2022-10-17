@@ -8,5 +8,7 @@
     <string name="valoracion">Valoracion</string>
     <string name="aceptar">Crear</string>
     <string name="cancelar">Cancelar</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="editar">Editar</string>
 
 </resources>

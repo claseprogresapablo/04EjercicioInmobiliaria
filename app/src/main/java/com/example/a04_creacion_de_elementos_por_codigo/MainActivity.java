@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.example.a04_creacion_de_elementos_por_codigo.configuraciones.Constantes;
 import com.example.a04_creacion_de_elementos_por_codigo.databinding.ActivityMainBinding;
 import com.example.a04_creacion_de_elementos_por_codigo.modelos.Piso;
 
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Piso> PisosList;
 
     private ActivityResultLauncher<Intent> launcherCrearPisos;
+    private ActivityResultLauncher<Intent> launcherEditPiso;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.toolbar);
 
+
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
+
+
+
 
         PisosList = new ArrayList<>();
         inicializaLaunchers();
@@ -67,17 +75,45 @@ public class MainActivity extends AppCompatActivity {
 
                         if (result.getResultCode() == RESULT_OK){
                             if (result.getData()!= null && result.getData().getExtras() != null){
-                                Piso p = (Piso) result.getData().getExtras().getSerializable("PISO");
+                                Piso p = (Piso) result.getData().getExtras().getSerializable(Constantes.INMUEBLE); //Inmbuele = piso que es el tag del bundle
                                 PisosList.add(p);
 
                                 //Toast.makeText(MainActivity.this, p.toString(), Toast.LENGTH_SHORT).show();
                                 pintarElementos();
 
 
+                            } else {
+                                Toast.makeText(MainActivity.this, "NO HAY INTENT", Toast.LENGTH_SHORT).show();
                             }
+                        } else {
+                            Toast.makeText(MainActivity.this, "Ventana Cancelada", Toast.LENGTH_SHORT).show();
                         }
 
 
+
+                    }
+                });
+
+
+        launcherEditPiso = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+
+                        if (result.getResultCode() ==RESULT_OK){
+                            if (result.getData()!= null && result.getData().getExtras() != null){
+
+
+
+
+
+                            } else {
+                                Toast.makeText(MainActivity.this, "NO HAY INTENT", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }else {
+                            Toast.makeText(MainActivity.this, "Ventana Cancelada", Toast.LENGTH_SHORT).show();
+                        }
 
                     }
                 });
@@ -87,7 +123,38 @@ public class MainActivity extends AppCompatActivity {
     private void pintarElementos() {
         //limpiar elemtos para que no se dupliquen
         binding.content.contenedor.removeAllViews();
-        for (Piso p : PisosList) {
+
+        for (int i = 0; i < PisosList.size(); i++) {
+
+            Piso p = PisosList.get(i);
+
+            LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+            View pisoView = inflater.inflate(R.layout.piso_model_view, null);
+
+            TextView lblCalle = pisoView.findViewById(R.id.lblCallePisoView);
+            TextView lblNumero = pisoView.findViewById(R.id.lblNumeroPisoView);
+            TextView lblProvincia = pisoView.findViewById(R.id.lblProvinciaPisoView);
+            RatingBar rbVal = pisoView.findViewById(R.id.rbValPisoView);
+
+            lblCalle.setText(p.getDireccion());
+            lblNumero.setText(String.valueOf(p.getNumero()));
+            lblProvincia.setText(p.getProvincia());
+            rbVal.setRating(p.getValoracion());
+
+            pisoView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+
+
+                }
+            });
+
+            binding.content.contenedor.addView(pisoView);
+
+
+        }
+        /*for (Piso p : PisosList) {
 
             //layaut inflater parta leer el xml
 
@@ -112,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
             binding.content.contenedor.addView(pisoView);
 
 
-        }
+        }*/
 
     }
 

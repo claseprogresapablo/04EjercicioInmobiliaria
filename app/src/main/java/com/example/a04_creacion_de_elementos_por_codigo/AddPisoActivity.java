@@ -66,9 +66,12 @@ public class AddPisoActivity extends AppCompatActivity {
         }
 
 
-        return new Piso(binding.txtDireccionAddPiso.getText().toString(),Integer.parseInt(binding.txtNumAddPiso.getText().toString()),
-                binding.txtCiudadAddPiso.getText().toString(), binding.txtProvinciaAddPiso.getText().toString(),
-                binding.txtCPAddPiso.getText().toString(),binding.rbValPisoAddPiso.getRating());
+        return new Piso(binding.txtDireccionAddPiso.getText().toString(),
+                Integer.parseInt(binding.txtNumAddPiso.getText().toString()),
+                binding.txtCiudadAddPiso.getText().toString(),
+                binding.txtProvinciaAddPiso.getText().toString(),
+                binding.txtCPAddPiso.getText().toString(),
+                binding.rbValPisoAddPiso.getRating());
 
 
 
